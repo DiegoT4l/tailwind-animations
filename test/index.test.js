@@ -1,6 +1,33 @@
 import { generatePluginCSS } from './utils.js'
 import { describe, it, expect } from 'vitest'
 
+
+describe('tailwindcss-animations plugin with prefix', () => {
+  it('use a predefined animation with prefix', async () => {
+    const css = await generatePluginCSS({
+      content: '<div class="tw-animate-zoom-in">Hello</div>',
+      prefix: 'tw' // Definir el prefijo a usar
+    })
+    expect(css).toMatch('@keyframes tw-zoom-in{0%{opacity:0;transform:scale(.5)}100%{opacity:1;transform:scale(1)}}.tw-animate-zoom-in{animation:tw-zoom-in 0.6s ease-out both}');
+  })
+
+  it('use fade in up animation with prefix', async () => {
+    const css = await generatePluginCSS({
+      content: '<div class="tw-animate-fade-in-up">Hello</div>',
+      prefix: 'tw'
+    })
+    expect(css).toMatch('@keyframes tw-fade-in-up{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}.tw-animate-fade-in-up{animation:tw-fade-in-up 0.6s ease-in-out both}');
+  })
+
+  it('use a custom animation delay with prefix', async () => {
+    const css = await generatePluginCSS({
+      content: '<div class="tw-animate-delay-[777ms]">Hello</div>',
+      prefix: 'tw'
+    })
+    expect(css).toMatch('.tw-animate-delay-\\[777ms\\]{animation-delay:777ms}')
+  })
+})
+
 describe('tailwindcss-animations plugins', () => {
   it('use a predefined animation', async () => {
     const css = await generatePluginCSS({

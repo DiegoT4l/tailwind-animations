@@ -6,13 +6,14 @@ import animationsPlugin from '../src/index.js'
 const TAILWIND_BASE = '@tailwind utilities;'
 
 export function generatePluginCSS (options = {}) {
-  const { inline = '', content = '' } = options
+  const { inline = '', content = '', prefix = '' } = options
 
   return postcss([
     minify(),
     tailwindcss({
       plugins: [animationsPlugin],
-      content: [{ raw: content }]
+      content: [{ raw: content }],
+      prefix: prefix ? `${prefix}-` : '' // Aplica el prefijo si se proporciona
     })
   ])
     .process(`${TAILWIND_BASE} ${inline}`, {
