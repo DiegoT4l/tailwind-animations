@@ -1,9 +1,10 @@
+/* eslint-disable semi */
 import createPlugin from 'tailwindcss/plugin.js';
 import theme from './theme.js';
 
 /** @type {import('tailwindcss/types/config').PluginCreator} */
-const pluginCreator = (api, { prefix = '' } = {}) => {
-  const { theme, matchUtilities, addUtilities } = api;
+const pluginCreator = (api) => {
+  const { theme, matchUtilities, addUtilities, prefix } = api;
 
   // Función para manejar timelines
   const singleTimeline = value => {
@@ -55,6 +56,6 @@ const pluginCreator = (api, { prefix = '' } = {}) => {
 };
 
 /** @type {import('tailwindcss/types/config').Config} */
-const pluginConfig = { theme };
+const pluginConfig = { theme, prefix: '' };
 
 export default createPlugin(pluginCreator, pluginConfig);
